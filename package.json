@@ -1,0 +1,19 @@
+{
+  "name": "xml-mapper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node ./app/index.ts --esm > log.txt"
+  },
+  "private": true,
+  "devDependencies": {
+    "@types/jsdom": "^21.1.6",
+    "@types/node": "^20.12.7"
+  },
+  "dependencies": {
+    "jsdom": "^24.0.0",
+    "ts-node": "^10.9.2"
+  }
+}
