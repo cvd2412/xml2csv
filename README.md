@@ -1,19 +1,29 @@
 # XML2CSV
-Options:
 
-* `outPutFileName` Output file's name (Optional)
+## Install
 
-* `xmlFilePath`: Path to xml file
+```bash
+$ npm run start
+```
 
-* `columnDataWrapper` Name of the tag wrapping column data
+## Options
 
-* `filter` Filter items with function
+| Option              | Description                              |
+|---------------------|------------------------------------------|
+| `outPutFileName`    | _(Optional)_ Name of the output file       |
+| `filter`            | _(Optional)_ Filter items with function    |
+| `xmlFilePath`       | Path to xml file                         |
+| `columnDataWrapper` | Name of the xml tag wrapping column data |
+| `mapping`           | See below                                |
 
 ### Mapping
 
 #### Example
+
 Example XML:
+
 ```xml
+
 <Items>
     <Item>
         <Id>1230</Id>
@@ -22,39 +32,33 @@ Example XML:
         <ItemGroups>
             <ItemGroup>
                 <Id>123456</Id>
-                <Name>Cool group</Name>
+                <Name>Group 1</Name>
                 <ItemSortOrderInGroup>0</ItemSortOrderInGroup>
             </ItemGroup>
-            <ItemGroup>
-                <Id>123455</Id>
-                <Name>Awesome group</Name>
-                <ItemSortOrderInGroup>0</ItemSortOrderInGroup>
-            </ItemGroup>
+            ...
         </ItemGroups>
     </Item>
-    <Item>
-        <Id>1230</Id>
-        <Name>Item 2</Name>
-        <Url>//example.com/item-2</Url>
-        <ItemGroups>
-            <ItemGroup>
-                <Id>123454</Id>
-                <Name>Default</Name>
-            </ItemGroup>
-        </ItemGroups>
-    </Item>
+    ...
 </Items>
 ```
 
-**config.ts**
+_**config.ts**_
 
 Usage:
+
 ```ts
- mapping: {
-   Name: 'Title', // returns textContent of specified tag
-   Url: 'URL',
-   ItemGroups: ['Groups', (item, index, array) => {
-     return [...item.querySelectorAll('ItemGroup > Id')].map(id => id.textContent).join(',')
-   }]
+mapping: {
+  Name: 'Title', // returns textContent of specified tag
+  Url:'URL', 
+  ItemGroups: ['Groups', (item, index, array) => {
+    return [...item.querySelectorAll('ItemGroup > Id')].map(id => id.textContent).join(',')
+  }]
 }
 ```
+Output:
+
+| Title  | URL                  | Groups          |
+|--------|----------------------|-----------------|
+| Item 1 | //example.com/item-1 | Group 1         |
+| Item 2 | //example.com/item-2 | Group 1,Group 2 |
+| Item 3 | //example.com/item-3 | Group 2,Group 3 |
