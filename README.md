@@ -18,12 +18,10 @@ $ npm run start
 
 ### Mapping
 
-#### Example
+#### Example usage
 
-Example XML:
-
+example.xml
 ```xml
-
 <Items>
     <Item>
         <Id>1230</Id>
@@ -41,20 +39,26 @@ Example XML:
 </Items>
 ```
 
-_**config.ts**_
-
-Usage:
-
+config.ts
 ```ts
-mapping: {
-  Name: 'Title', // returns textContent of specified tag
-  Url:'URL', 
-  ItemGroups: ['Groups', (item, index, array) => {
-    return [...item.querySelectorAll('ItemGroup > Name')].map(name => name.textContent).join(',')
-  }]
+export default {
+  xmlFilePath: './example.xml',
+  columnDataWrapper: 'Item',
+
+  filter: (item) => !!item.querySelector('Name')?.textContent,
+
+  mapping: {
+    Name: 'Title',
+    EAN: 'Metafield: facts.ean [single_line_text_field]',
+    NoIndex: 'Metafield: seo.noindex [boolean]',
+    InternalKeywords: ['Tags', (item) => item.textContent?.trim().split(',').filter(i => i).join(',') || ''],
+  }
 }
 ```
-Output:
+
+**config.ts**
+
+#### Output:
 
 | Title  | URL                  | Groups          |
 |--------|----------------------|-----------------|
