@@ -1,6 +1,6 @@
 # XML2CSV
 
-## Install
+## Run
 
 ```bash
 $ npm run start
