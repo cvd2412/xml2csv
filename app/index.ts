@@ -1,8 +1,9 @@
+import fs from "fs";
 import { JSDOM } from "jsdom";
+
 import config from '../config'
 import Config, { ObjectItem, ValueMappingFunction } from './types'
 import toCSV from "./utils";
-import fs from "fs";
 
 if (!config?.xmlFilePath) {
   throw Error('File path not defined')
@@ -46,7 +47,6 @@ function mapItems (items: HTMLElement[]) {
   });
 
   if (fields.length) {
-    console.log(Object.keys(fields[0]))
     fs.writeFileSync(`./output/${appConfig.outPutFileName || 'csvFromXML'}.csv`, toCSV(fields));
   }
 }
