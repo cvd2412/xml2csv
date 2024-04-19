@@ -48,10 +48,11 @@ export default {
   filter: (item) => !!item.querySelector('Name')?.textContent,
 
   mapping: {
-    Name: 'Title',
-    EAN: 'Metafield: facts.ean [single_line_text_field]',
-    NoIndex: 'Metafield: seo.noindex [boolean]',
-    InternalKeywords: ['Tags', (item) => item.textContent?.trim().split(',').filter(i => i).join(',') || ''],
+    Name: 'Title', // returns textContent of specified tag
+    Url:'URL',
+    ItemGroups: ['Groups', (item, index, array) => {
+      return [...item.querySelectorAll('ItemGroup > Name')].map(name => name.textContent).join(',')
+    }]
   }
 }
 ```
