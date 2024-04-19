@@ -33,7 +33,6 @@ Example XML:
             <ItemGroup>
                 <Id>123456</Id>
                 <Name>Group 1</Name>
-                <ItemSortOrderInGroup>0</ItemSortOrderInGroup>
             </ItemGroup>
             ...
         </ItemGroups>
@@ -51,7 +50,7 @@ mapping: {
   Name: 'Title', // returns textContent of specified tag
   Url:'URL', 
   ItemGroups: ['Groups', (item, index, array) => {
-    return [...item.querySelectorAll('ItemGroup > Id')].map(id => id.textContent).join(',')
+    return [...item.querySelectorAll('ItemGroup > Name')].map(name => name.textContent).join(',')
   }]
 }
 ```
